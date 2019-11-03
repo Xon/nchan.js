@@ -809,6 +809,7 @@
         this.name = "longpoll";
         this.opt = defaultTransportOptions();
         this.opt.longpoll.pollDelay = 0;
+        this.opt.longpoll.method = 'GET';
       }
 
       Longpoll.prototype.setup = function() {
@@ -836,7 +837,7 @@
           }
           this.nextRequestTimer = null;
           this.reqStartTime = new Date().getTime();
-          this.req = nanoajax.ajax({url: this.opt.url, headers: this.opt.headers}, requestCallback);
+          this.req = nanoajax.ajax({url: this.opt.url, method: this.opt.longpoll.method, headers: this.opt.headers}, requestCallback);
           this.emit("transportNativeCreated", this.req, this.name);
         }, this);
         var  requestCallback;
